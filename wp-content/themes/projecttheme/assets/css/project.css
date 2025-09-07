@@ -1,0 +1,91 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.project-sec1{
+    margin-top: 0px;
+    background-image: url("../image/project.jpg");
+    background-size: cover;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    
+
+   
+
+}
+
+a{
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    
+}
+.menu-menu-1-container ul{
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    margin-top: 0px;
+    padding-top: 20px;
+    padding-right: 90px;
+    
+}
+
+
+
+.menu-menu-1-container ul li{
+    list-style-type: none;
+    display:inline;
+    margin-right: 50px;
+
+}
+.custom-logo{
+    margin-left: 60px;
+    
+}
+
+/* for 2ndpage */
+
+.project-sec2{
+    height: 100vh;
+    margin-top: 70px;
+
+}
+
+.header1{
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 40px;
+}
+.swiper {
+
+  max-width: 1450px;
+  max-height: 400px;
+ 
+ 
+}
+.swiper-slide img {
+    width: 100%;       
+    height: auto;      
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+/* for 3ndpage */
+
+.project-sec3{
+    height: 100vh;
+    margin-top: 50px;
+
+}
+
+/* for 4th page */
+
+.project-sec4{
+    height: 100vh;
+    margin-top: 50px;
+
+}
