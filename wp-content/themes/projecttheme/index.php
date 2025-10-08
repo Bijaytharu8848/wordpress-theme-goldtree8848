@@ -35,14 +35,37 @@
 
     </section>  
     <section class="service-page2">
-        <div class="element">
-            <h2>It's Time to Start Your Adventures</h2>
-            <p>Step outside your comfort zone and discover the thrill of the great outdoors.
-                 From mountains to rivers, every journey is a chance to explore, grow, and create unforgettable memories.</p>
-        </div>
         
         <?php
-        // Show posts from "services" category only
+        // Show 1 posts from "services1" category only
+        $services = new WP_query([
+            
+            'category_name' => 'services1',
+            'posts_per_page' => '1'
+            
+        ]); 
+
+        if($services->have_posts()): ?>
+         
+            <?php   while($services->have_posts()) : $services->the_post(); ?>
+                   
+                <div class="element">
+                    <h2><?php the_title(); ?> </h2>
+                    <p><?php the_content(); ?></p>
+                </div>
+
+            <?php endwhile;
+                    wp_reset_postdata();
+
+                    
+                else :
+                    echo "<p>No About posts yet.</p>";
+                endif;
+                ?>
+                 
+
+        <?php
+        // Show 4 blog posts from "services" category only
         $services = new WP_query([
             
             'category_name' => 'services',

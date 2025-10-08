@@ -121,6 +121,37 @@ header {
  
 
 }
+
+/* Container (optional) */
+a.custom-logo-link {
+    display: inline-block;
+}
+
+/* Logo image */
+.custom-logo {
+    width: 100%;       /* Logo scales with parent container */
+    max-width: 200px;  /* Maximum width to prevent it from being too big */
+    height: auto;      /* Maintains aspect ratio */
+    display: block;    /* Remove inline spacing issues */
+}
+
+/* Optional: make it responsive inside smaller screens */
+@media (max-width: 768px) {
+    .custom-logo {
+        max-width: 150px; /* Adjust max-width for tablets/mobiles */
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-logo {
+        max-width: 120px; /* Adjust for small screens */
+    }
+}
+
+
+
+
+
 </style>  
 </head>
 <body>
