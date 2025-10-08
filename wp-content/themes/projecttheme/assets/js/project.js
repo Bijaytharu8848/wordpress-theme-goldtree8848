@@ -17,4 +17,16 @@ const swiper = new Swiper('.swiper', {
   },
 
 
+  breakpoints: {
+      0: {
+        slidesPerView: 1, // 📱 Mobile (default small screens)
+      },
+      768: {
+        slidesPerView: 2, // Tablet
+      },
+      1024: {
+        slidesPerView: 3, // Desktop
+      }
+    }
+
 });

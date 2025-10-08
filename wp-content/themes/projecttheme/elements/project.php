@@ -11,94 +11,148 @@
 <section class="project-sec1">
 
     <header>
-        <?php wp_nav_menu(array('theme_location'=>'primary-menu',
-        'menu_class'=> 'menu-menu-1-container')) ?>
-        <div class="content"><?php the_content();?></div>
-        <a href="home">
-        <img width="150" height="42" src="https://websitedemos.net/outdoor-adventure-02/wp-content/uploads/sites/351/2020/01/white-logo-150x42.png" 
-        class="custom-logo" alt="" decoding="async" srcset="https://websitedemos.net/outdoor-adventure-02/wp-content/uploads/sites/351/2020/01/white-logo.png 1x, https://websitedemos.net/outdoor-adventure-02/wp-content/uploads/sites/351/2020/01/white-logo@2x.png 2x" 
-        sizes="(max-width: 150px) 100vw, 150px">    </a>
+        <?php
+        // Template Name: Project
+        get_header();
+ 
+        ?>
+        
+        <?php
+            $bg_image = get_the_post_thumbnail_url(get_queried_object_id(), 'full');
+            ?>
+            <style>
+            .project-sec1 {
+                background-image: url('<?php echo esc_url($bg_image); ?>');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                height: 100vh;
+            }
+            </style>
+
+         
     </header>
 </section>   
 
-<section class="project-sec2">
-    <div class="header1">
-        <h2> Water Sports</h2>
-    </div>
-    <!-- Slider main container -->
-    <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/watersport2.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/watersport3.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/watersport4.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/watersport5.jpg" alt=""></div>
-            
-          
+
+
+
+        <!-- Group Slider -->
+        <?php
+        $group_images = [
+            get_field('group_image_1'),
+            get_field('group_image_2'),
+            get_field('group_image_3'),
+            get_field('group_image_4')
+        ];
+        $group_images = array_filter($group_images);
+        ?>
+
+        <div class="project-sec2">
+
+            <div class="header1">
+               <h2> Camping </h2>
+            </div>
+
+            <div class="swiper">
+                
+                <!--  Swiper wrapper wraps ALL slides -->
+                <div class="swiper-wrapper">
+                <?php foreach ($group_images as $img): ?>
+                    <div class="swiper-slide">
+                    <img src="<?php echo esc_url($img); ?>" alt="Group Image">
+                    </div>
+                <?php endforeach; ?>
+                </div>
+
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+            </div>
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-
-    </div>
-</section>
 
 
-<section class="project-sec3">
-    <div class="header1">
-        <h2> Winter Sports</h2>
-    </div>
-    <!-- Slider main container -->
-    <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/wintersport.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/wintersport2.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/wintersport3.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/wintersport4.jpg" alt=""></div>
-          
+        <!-- Team Slider -->
+        <?php
+        $team_images = [
+            get_field('team_image_1'),
+            get_field('team_image_2'),
+            get_field('team_image_3'),
+            get_field('team_image_4')
+        ];
+        $team_images = array_filter($team_images);
+        ?>
+
+        <div class="project-sec3">
+
+            <div class="header1">
+               <h2> Winter Sports</h2>
+            </div>
+
+            <div class="swiper">
+                
+                <!--  Swiper wrapper wraps ALL slides -->
+                <div class="swiper-wrapper">
+                <?php foreach ($team_images as $img): ?>
+                    <div class="swiper-slide">
+                    <img src="<?php echo esc_url($img); ?>" alt="Team Image">
+                    </div>
+                <?php endforeach; ?>
+                </div>
+
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+            </div>
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-
-    </div>
-</section>
 
 
-<section class="project-sec4">
-    <div class="header1">
-        <h2> Camping</h2>
-    </div>
-    <!-- Slider main container -->
-    <div class="swiper">
-        <!-- Additional required wrapper -->
-        <div class="swiper-wrapper">
-            <!-- Slides -->
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/camping1.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/camping2.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/camping3.jpg" alt=""></div>
-            <div class="swiper-slide"><img src="<?php echo get_template_directory_uri(); ?>/assets/image/camping4.jpg" alt=""></div>
-          
+
+        <!-- Gallery Slider -->
+        <?php
+        $gallery_images = [
+            get_field('gallery_image_1'),
+            get_field('gallery_image_2'),
+            get_field('gallery_image_3'),
+            get_field('gallery_image_4')
+        ];
+        $gallery_images = array_filter($gallery_images);
+        ?>
+
+        <div class="project-sec4">
+
+            <div class="header1">
+               <h2> Water Sports </h2>
+            </div>
+
+            <div class="swiper">
+                
+                <!--  Swiper wrapper wraps ALL slides -->
+                <div class="swiper-wrapper">
+                <?php foreach ($gallery_images as $img): ?>
+                    <div class="swiper-slide">
+                    <img src="<?php echo esc_url($img); ?>" alt="Gallery Image">
+                    </div>
+                <?php endforeach; ?>
+                </div>
+
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+
+            </div>
         </div>
-        <!-- If we need pagination -->
-        <div class="swiper-pagination"></div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-
-    </div>
-</section>
 
 
 <?php

@@ -20,89 +20,195 @@
                     // Template Name: Home
                     get_header();
                 ?>
-                <a href="home">
-                            <img width="150" height="42" src="https://websitedemos.net/outdoor-adventure-02/wp-content/uploads/sites/351/2020/01/white-logo-150x42.png" 
-                            class="custom-logo" alt="" decoding="async" srcset="https://websitedemos.net/outdoor-adventure-02/wp-content/uploads/sites/351/2020/01/white-logo.png 1x, https://websitedemos.net/outdoor-adventure-02/wp-content/uploads/sites/351/2020/01/white-logo@2x.png 2x" 
-                            sizes="(max-width: 150px) 100vw, 150px"> </a>    
+
+                <?php
+                $bg_image = get_the_post_thumbnail_url(get_queried_object_id(), 'full');
+                ?>
+                <style>
+                .hero {
+                    background-image: url('<?php echo esc_url($bg_image); ?>');
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    height: 100vh;
+                }
+                </style>
+
+                   
                             
             </header>
             
                
                 
                 <div class= "header-content" >
-                <h3>Explore the Colorful World</h3>
-                <h1>A Wonderful Gift</h1> </div> 
+                <h3><?php the_content();  ?></h3>
+                 </div> 
             </div>
-
-
-        <h1 style="text-align:center; margin-bottom:40px;">Upcoming Events</h1>
-
-        <div class="blog-container">
             
-            <!-- Blog Card 1 -->
-            <div class="blog-card">
-            <img src="https://picsum.photos/600/400?random=1" alt="Blog Image">
-            <div class="blog-content">
-                <h2>Exploring the Mountains</h2>
-                <p>Discover the beauty of the mountains with our detailed travel guide and breathtaking photos from around the world.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-            </div>
 
-            <!-- Blog Card 2 -->
-            <div class="blog-card">
-            <img src="https://picsum.photos/600/400?random=2" alt="Blog Image">
-            <div class="blog-content">
-                <h2>Beach Paradise Awaits</h2>
-                <p>Unwind on golden sands, enjoy crystal clear water, and find out the best beaches to visit this summer.</p>
-                <a href="#" class="read-more">Read More →</a>
-            </div>
-            </div>
+            <!--  for upcoming events heading -->
 
-        </div>
+            <?php 
 
+            $heading = get_field('home_heading');
+            
+            ?>
 
-            <div class="hero1">
-                    <div class="blog-container1">
-                    <!-- Blog Card 3 -->
-                        <div class="blog-card1">
-                            
-                            <div class="blog-content1">
-                                <h2>City Lights and Nightlife</h2>
-                                <p>From rooftop bars to cultural festivals, experience the best nightlife in vibrant cities around the globe.</p>
-                                <a href="#" class="read-more1">Read More →</a>
+            <?php if($heading): ?>
+
+                <h1 style="text-align:center; margin-bottom:40px; margin-top: 40px; "> <?php echo $heading; ?> </h1>
+                
+            <?php endif; ?> 
+
+        
+        
+        <?php
+        // Show posts from "home-section1" category only
+        $home_s1 = new WP_query([
+            
+            'category_name' => 'home-section1',
+            'posts_per_page' => '2'
+            
+        ]); 
+
+        
+        if($home_s1->have_posts()): ?>
+        <div class="blog-container" >    
+            <?php   while($home_s1->have_posts()) : $home_s1->the_post(); ?>
+                   
+            
+                 
+            
+                
+                    <div class="blog-card">
+                        <?php if (has_post_thumbnail()) : ?>
+                            <div class="column-image">
+                                <?php the_post_thumbnail('large'); ?>
                             </div>
+                        <?php endif; ?>
+                       
+                        <div class="blog-content">
+                    
+                        <h2><?php the_title(); ?> </h2>
+                        <p><?php the_content(); ?></p>
+                        <a href="#" class="read-more">Read More →</a>
                         </div>
                     </div>
-            </div> 
-            <div class="container">
-                    <div class="blog-container2">
-                        <!-- Blog Card 3 -->
-                            <div class="blog-card2">
-                                
-                                <div class="blog-content2">
-                                    <h2>Upcoming Tours & Destination</h2>
-                                    <p>From rooftop bars to cultural festivals, experience the best nightlife in vibrant cities around the globe.</p>
+                
+            
+               
+               
+       
+            <?php endwhile;
+                    wp_reset_postdata();
+
+                    
+                else :
+                    echo "<p>No About posts yet.</p>";
+                endif;
+                ?>
+                 
+        </div>  
+
+        
+<!--  for 2nd background section -->
+
+            <?php
+         
+            $bg2 = get_field('background_section_2');
+            ?>
+
+            <section class="hero1" style="background-image: url('<?php echo esc_url($bg2); ?>');">
+                <div class="content">
+                    <?php
+            $home_s2 = new WP_Query([
+                'category_name' => 'home-section2',
+                'posts_per_page' => 1
+            ]); 
+
+            if ($home_s2->have_posts()) : ?>
+                <div class="container">
+                    <?php while ($home_s2->have_posts()) : $home_s2->the_post(); ?>
+
+                        <div class="blog-container1">
+                            <div class="blog-card1">  
+                                <div class="blog-content1">
+                                    <h2><?php the_title(); ?></h2>
+                                    <?php the_content(); ?>
                                     <a href="#" class="read-more2">Read More →</a>
-                                </div>
-                            
-                            
                                     
+                                </div>
                             </div>
                             
-                        
+                        </div>
+
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+            <?php else: ?>
+                <p>No posts yet.</p>
+            <?php endif; ?>
+                </div>
+            </section>
+
+            <style>
+
+                .hero1{ 
+                margin-top: 40px;
+                background-size: cover;
+                height: 100vh;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-attachment: fixed;
+                
+                }
+            </style>
+
+
+        <!--  this is for last section of the homepage -->
+            <?php
+            $home_s2 = new WP_Query([
+                'category_name' => 'home-section3',
+                'posts_per_page' => 1
+            ]); 
+
+            if ($home_s2->have_posts()) : ?>
+                <div class="container">
+                    <?php while ($home_s2->have_posts()) : $home_s2->the_post(); ?>
+
+                        <div class="blog-container2">
+                            <div class="blog-card2">  
+                                <div class="blog-content2">
+                                    <h2><?php the_title(); ?></h2>
+                                    <?php the_content(); ?>
+                                    <a href="#" class="read-more2">Read More →</a>
+                                    
+                                </div>
+                            </div>
                             
-                    </div>
-                    <div class="column2-image">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/project.jpg" alt="Blog Image">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/service.jpg" alt="Blog Image">
-                    </div>
-                    <div class="column3-image">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/about.jpg" alt="Blog Image">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/about.jpg" alt="Blog Image">
-                        
-                    </div> 
-            </div>    
+                        </div>
+
+
+                        <div class="image-grid">
+                            <?php 
+                            $images = [];
+                            for ($i = 1; $i <= 4; $i++) {
+                                $img = get_field('image_' . $i);
+                                if ($img) $images[] = $img;
+                            }
+
+                            foreach ($images as $image): ?>
+                                <div class="column2-image">
+                                    <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+            <?php else: ?>
+                <p>No posts yet.</p>
+            <?php endif; ?>
+     
 </body>
 
 
