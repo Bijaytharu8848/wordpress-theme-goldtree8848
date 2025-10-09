@@ -65,7 +65,53 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 
+// Handle Contact Form AJAX Submission
+add_action('wp_ajax_submit_contact_form', 'handle_contact_form');
+add_action('wp_ajax_nopriv_submit_contact_form', 'handle_contact_form');
+
+function handle_contact_form() {
+    // Verify nonce
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'contact_form_nonce')) {
+        wp_send_json(['success' => false, 'message' => 'Invalid security token.']);
+    }
+
+    $name    = sanitize_text_field($_POST['name'] ?? '');
+    $email   = sanitize_email($_POST['email'] ?? '');
+    $message = sanitize_textarea_field($_POST['message'] ?? '');
+
+    if (empty($name) || empty($email) || empty($message)) {
+        wp_send_json(['success' => false, 'message' => 'Please fill in all fields.']);
+    }
+
+    if (!is_email($email)) {
+        wp_send_json(['success' => false, 'message' => 'Invalid email address.']);
+    }
+
+    $to      = get_option('admin_email'); // Admin email
+    $subject = 'New Contact Form Submission from ' . get_bloginfo('name');
+    $body    = "Name: $name\nEmail: $email\n\nMessage:\n$message";
+
+    // Use From email same as WP Mail SMTP
+    $from_email = get_option('wp_mail_smtp')['from_email'] ?? get_option('admin_email');
+    $from_name  = get_option('wp_mail_smtp')['from_name'] ?? get_bloginfo('name');
+
+    $headers = [
+        'From: ' . $from_name . ' <' . $from_email . '>',
+        'Reply-To: ' . $name . ' <' . $email . '>',
+    ];
+
+    if (wp_mail($to, $subject, $body, $headers)) {
+        wp_send_json(['success' => true, 'message' => ' Your message has been sent successfully!']);
+    } else {
+        wp_send_json(['success' => false, 'message' => ' Something went wrong. Please check SMTP settings.']);
+    }
+}
+
+
+
+
 ?>
+
 
 
 
